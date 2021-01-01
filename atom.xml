@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jiangling500.github.io</id>
     <title>jiangling500</title>
-    <updated>2021-01-01T15:23:30.522Z</updated>
+    <updated>2021-01-01T15:39:54.672Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jiangling500.github.io"/>
     <link rel="self" href="https://jiangling500.github.io/atom.xml"/>
@@ -10,4 +10,25 @@
     <logo>https://jiangling500.github.io/images/avatar.png</logo>
     <icon>https://jiangling500.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, jiangling500</rights>
+    <entry>
+        <title type="html"><![CDATA[关于Gridea]]></title>
+        <id>https://jiangling500.github.io/post/guan-yu-gridea/</id>
+        <link href="https://jiangling500.github.io/post/guan-yu-gridea/">
+        </link>
+        <updated>2021-01-01T15:23:59.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="gridea一同步邮箱就收到github发送的邮件">Gridea一同步，邮箱就收到Github发送的邮件</h2>
+<p>邮件内容如下：</p>
+<pre><code>The page build completed successfully, but returned the following warning for the `main` branch:
+
+Your CNAME file was ignored because this repository is automatically hosted from jiangling500.github.io already. See https://docs.github.com/articles/setting-up-your-pages-site-repository/
+
+For information on troubleshooting Jekyll see:
+
+  https://docs.github.com/articles/troubleshooting-jekyll-builds
+
+If you have any questions you can submit a request on the Contact GitHub page at https://support.github.com/contact?repo_id=325996040&amp;page_build_id=224445559
+</code></pre>
+<p>这是因为在<strong>远程</strong>--&gt;<strong>基础配置</strong>中有配置过 <strong>CNAME</strong>，Gridea 在同步时，会上传 CNAME 文件到 Github 上，解决办法就是不让 Gridea 上传 CNAME 文件到 Github 上。但此时即使将 <strong>CNAME</strong> 配置为空，再点同步仍然会收到邮件，这是因为 Gridea 已经生成了 CNAME 文件，每次在同步时都会将 CNAME 上传至 Github，需要将 Gridea 生成的文件全部删除。具体操作就是，点 Gridea 左下角的配置按钮，打开<strong>站点源文件路径</strong>，将 Gridea 整个文件夹删除，最好再将 github.io 仓库也删除重新创建，下次再配置<strong>远程</strong>--&gt;<strong>基础配置</strong>时，不要配置 <strong>CNAME</strong>，保持该项为空。至此，Gridea 再同步时就不会再收到 Github 发送的邮件了。</p>
+]]></content>
+    </entry>
 </feed>
