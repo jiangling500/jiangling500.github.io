@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="万丈高楼平地起，勿在浮沙筑高台！">
 <meta name="theme-color" content="#000">
-<title>关于Gridea | jiangling500</title>
+<title>JDBC | jiangling500</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1609571117975">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -38,8 +38,8 @@
 
 
 
-  <meta name="description" content="关于Gridea" />
-  <meta name="keywords" content="Gridea" />
+  <meta name="description" content="JDBC" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -248,7 +248,14 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#gridea%E4%B8%80%E5%90%8C%E6%AD%A5%E9%82%AE%E7%AE%B1%E5%B0%B1%E6%94%B6%E5%88%B0github%E5%8F%91%E9%80%81%E7%9A%84%E9%82%AE%E4%BB%B6">Gridea一同步，邮箱就收到Github发送的邮件</a></li>
+<li><a href="#jdbc-%E6%9C%AC%E8%B4%A8">JDBC 本质</a></li>
+<li><a href="#%E4%B8%8B%E8%BD%BD-mysql-%E9%A9%B1%E5%8A%A8%E5%8C%85">下载 MySQL 驱动包</a></li>
+<li><a href="#%E5%AF%BC%E5%85%A5-jar-%E5%8C%85%E5%88%B0-idea-%E4%B8%AD">导入 jar 包到 idea 中</a>
+<ul>
+<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%80">方法一</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E4%BA%8C">方法二</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -516,8 +523,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://jiangling500.github.io/post/guan-yu-gridea/">
-      关于Gridea
+    <a class="post-title-link" href="https://jiangling500.github.io/post/Java/">
+      JDBC
     </a>
   </h1>
   <div class="post-meta">
@@ -525,36 +532,23 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-01-01 23:23:59">2021-01-01</span>
+      <span class="publish-time" data-t="2021-01-02 13:12:41">2021-01-02</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show language" data-lan="category-in">分类于</span>
-      
-      
-      <a href="https://jiangling500.github.io/tag/0gETJLwjg/">
-        <span>Gridea</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>2<span class="language" data-lan="minute">分钟</span></span>
+      <span>1<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>307<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>247<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
     
-    <span id="/post/guan-yu-gridea/" data-flag-title="关于Gridea" class="meta-item pc-show leancloud_visitors">
+    <span id="/post/Java/" data-flag-title="JDBC" class="meta-item pc-show leancloud_visitors">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-eye"></i>
       <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
@@ -563,19 +557,16 @@
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h2 id="gridea一同步邮箱就收到github发送的邮件">Gridea一同步，邮箱就收到Github发送的邮件</h2>
-<p>邮件内容如下：</p>
-<pre><code>The page build completed successfully, but returned the following warning for the `main` branch:
-
-Your CNAME file was ignored because this repository is automatically hosted from jiangling500.github.io already. See https://docs.github.com/articles/setting-up-your-pages-site-repository/
-
-For information on troubleshooting Jekyll see:
-
-  https://docs.github.com/articles/troubleshooting-jekyll-builds
-
-If you have any questions you can submit a request on the Contact GitHub page at https://support.github.com/contact?repo_id=325996040&amp;page_build_id=224445559
-</code></pre>
-<p>这是因为在<strong>远程</strong>--&gt;<strong>基础配置</strong>中有配置过 <strong>CNAME</strong>，Gridea 在同步时，会上传 CNAME 文件到 Github 上，解决办法就是不让 Gridea 上传 CNAME 文件到 Github 上。但此时即使将 <strong>CNAME</strong> 配置为空，再点同步仍然会收到邮件，这是因为 Gridea 已经生成了 CNAME 文件，每次在同步时都会将 CNAME 上传至 Github，需要将 Gridea 生成的文件全部删除。具体操作就是，点 Gridea 左下角的配置按钮，打开<strong>站点源文件路径</strong>，将 Gridea 整个文件夹删除，最好再将 github.io 仓库也删除重新创建，下次再配置<strong>远程</strong>--&gt;<strong>基础配置</strong>时，不要配置 <strong>CNAME</strong>，保持该项为空。至此，Gridea 再同步时就不会再收到 Github 发送的邮件了。</p>
+              <h2 id="jdbc-本质">JDBC 本质</h2>
+<p>官方定义的一套操作所有关系型数据库的规则，即接口。各个数据库厂商去实现这套接口，提供数据库驱动 jar 包。我们可以使用这套接口(JDBC)编程，真正执行的代码是驱动 jar 包中的实现类。</p>
+<h2 id="下载-mysql-驱动包">下载 MySQL 驱动包</h2>
+<p>打开<a href="https://dev.mysql.com/downloads/connector/j/">MySQL驱动包官网下载地址</a>，操作系统选择平台无关的，即<strong>Platform Independent</strong>，然后下载<strong>zip</strong>格式的，解压缩后即可得到 MySQL 驱动 jar 包。</p>
+<h2 id="导入-jar-包到-idea-中">导入 jar 包到 idea 中</h2>
+<h3 id="方法一">方法一</h3>
+<p><strong>File</strong>--&gt;<strong>Project Structure</strong>--&gt;<strong>Modules</strong>--&gt;<strong>Dependencies</strong>--&gt;添加 MySQL 驱动 jar 包。</p>
+<h3 id="方法二">方法二</h3>
+<p>在 idea 项目中新建 libs 目录，然后复制 MySQL 驱动 jar 包，在 idea 中选择 libs 目录，直接粘贴，即可把 MySQL 驱动 jar 包复制到了 libs 目录中。在 idea 的 libs 目录中，右键 MySQL 驱动 jar 包，选择<strong>Add as Library</strong>，即可导入 MySQL 驱动 jar 包到项目中。</p>
+<p>java.sql包下的接口</p>
 
             </div>
             
@@ -588,7 +579,7 @@ If you have any questions you can submit a request on the Contact GitHub page at
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://jiangling500.github.io/post/guan-yu-gridea/" title="关于Gridea">https://jiangling500.github.io/post/guan-yu-gridea/</a>
+      <a href="https://jiangling500.github.io/post/Java/" title="JDBC">https://jiangling500.github.io/post/Java/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -597,18 +588,16 @@ If you have any questions you can submit a request on the Contact GitHub page at
   </ul>
   <div class="tags">
     
-      <a href="https://jiangling500.github.io/tag/0gETJLwjg/"># Gridea</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="JDBC" href="https://jiangling500.github.io/post/Java/">JDBC</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="JDBC" href="https://jiangling500.github.io/post/Java/">上一篇</a>
-      
     </div>
     <div class="nav-next">
+      
+        <a class="nav-pc-next" title="关于Gridea" href="https://jiangling500.github.io/post/guan-yu-gridea/">关于Gridea</a>
+        <a class="nav-mobile-next" title="关于Gridea" href="https://jiangling500.github.io/post/guan-yu-gridea/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>
