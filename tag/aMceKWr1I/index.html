@@ -1,1096 +1,158 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" >
 
-<head>
-  <meta charset="UTF-8" />
+<title>Java | jiangling500</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="keywords" content="Gridea静态个人博客">
-<meta name="description" content="万丈高楼平地起，勿在浮沙筑高台！">
-<meta name="theme-color" content="#000">
-<title>jiangling500</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1609599357571">
-<link rel="stylesheet" href="/media/css/pisces.css">
-<link rel="stylesheet" href="/media/fonts/font-awesome.css">
-<link
-  href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
-  rel="stylesheet" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-<link href="/media/hljs/styles/default.css"
-  rel="stylesheet">
-
-<link rel="stylesheet" href="/styles/main.css">
-
-<script src="/media/hljs/highlight.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
-  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-
-
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
-  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
-  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
-  onload="renderMathInElement(document.body);"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://jiangling500.github.io/favicon.ico?v=1609600371510">
+<link rel="stylesheet" href="https://jiangling500.github.io/styles/main.css">
 
 
 
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
-</head>
 
-<body>
-  <div class="head-top-line"></div>
-  <div class="header-box">
-    
-<div class="pisces">
-  <header class="header  ">
-    <div class="blog-header box-shadow-wrapper bg-color " id="header">
-      <div class="nav-toggle" id="nav_toggle">
-        <div class="toggle-box">
-          <div class="line line-top"></div>
-          <div class="line line-center"></div>
-          <div class="line line-bottom"></div>
-        </div>
+    <meta name="description" content="万丈高楼平地起，勿在浮沙筑高台！">
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://jiangling500.github.io">
+        <img src="https://jiangling500.github.io/images/avatar.png?v=1609600371510" class="site-logo">
+        <h1 class="site-title">jiangling500</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
       </div>
-      <div class="site-meta">       
-        <div class="site-title">
-          
-            <a href="/" class="brand">
-              <span>jiangling500</span>
-            </a>  
-          
-        </div>
-        
-          <p class="subtitle">万丈高楼平地起，勿在浮沙筑高台！</p>
-        
-      </div>
-      <nav class="site-nav" id="site_nav">
-        <ul id="nav_ul">
-          
-            
-            
-              
-            
-            <li class="nav-item ">
-              
-              
-                <a href="/" target="_self">
-                  <i class="fa fa-home"></i> 首页
-                </a>
-              
-            </li>
-          
-            
-            
-              
-            
-            <li class="nav-item ">
-              
-              
-                <a href="/archives/" target="_self">
-                  <i class="fa fa-archive"></i> 归档
-                </a>
-              
-            </li>
-          
-            
-            
-              
-            
-            <li class="nav-item ">
-              
-              
-                <a href="/tags/" target="_self">
-                  <i class="fa fa-tags"></i> 标签
-                </a>
-              
-            </li>
-          
-            
-            
-              
-            
-            <li class="nav-item ">
-              
-              
-                <a href="/post/about/" target="_self">
-                  <i class="fa fa-user"></i> 关于
-                </a>
-              
-            </li>
-          
-          
-            
-              <li class="nav-item ">
-                <a href="/friends/" target="_self">
-                  
-                    <i class="fa fa-address-book"></i> 链接
-                  
-                </a>
-              </li>
-            
-          
-          
-            <li id="fa_search" class="nav-item">
-              <a href="javascript:void(0);">
-                <i class="fa fa-search"></i> <span class="language" data-lan="search">搜索</span>
-              </a>
-            </li>
-          
-        </ul>
-      </nav>
     </div>
-  </header>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      万丈高楼平地起，勿在浮沙筑高台！
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://jiangling500.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
 </div>
 
-<script type="text/javascript"> 
- 
-  let showNav = true;
 
-  let navToggle = document.querySelector('#nav_toggle'),
-  siteNav = document.querySelector('#site_nav');
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <h2 class="current-tag">标签: Java</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://jiangling500.github.io/post/java-zhong-de-jing-tai-dai-ma-kuai/">
+                  <h2 class="post-title">Java 静态代码块的工程应用</h2>
+                </a>
+                <div class="post-date">
+                  2021-01-02
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://jiangling500.github.io/post/JDBC/">
+                  <h2 class="post-title">JDBC</h2>
+                </a>
+                <div class="post-date">
+                  2021-01-02
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
   
-  function navClick() {
-    let sideBar = document.querySelector('.sidebar');
-    let navUl = document.querySelector('#nav_ul');
-    navToggle.classList.toggle('nav-toggle-active');
-    siteNav.classList.toggle('nav-menu-active');
-    if (siteNav.classList.contains('nav-menu-active')) {
-      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
-    } else {
-      siteNav.style = "";
-    }
-  }
+  
+</div>
 
-  navToggle.addEventListener('click',navClick);  
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
 </script>
-  </div>
-  <div class="main-continer">
-    
-    <div
-      class="section-layout  pisces">
-      <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
-<div class="sidebar-wrapper box-shadow-wrapper bg-color">
-  <div class="sidebar-item">
-    <img class="site-author-image right-motion" src="/images/avatar.png"/>
-    <p class="site-author-name">jiangling500</p>
-    
-  </div>
-  <div class="sidebar-item side-item-stat right-motion">
-    <div class="sidebar-item-box">
-      <a href="/archives/">
-        
-        <span class="site-item-stat-count">4</span>
-        <span class="site-item-stat-name language" data-lan="article">文章</span>
-      </a>
-    </div>
-    <div class="sidebar-item-box">
-      <a href="">
-        <span class="site-item-stat-count">2</span>
-        <span class="site-item-stat-name language" data-lan="category">分类</span>
-      </a>
-    </div>
-    <div class="sidebar-item-box">
-      <a href="/tags/">
-        <span class="site-item-stat-count">2</span>
-        <span class="site-item-stat-name language" data-lan="tag">标签</span>
-      </a>
-    </div>
-  </div>
-  
-    
-  
-  
 
 
-
-</div>
-</div>
-<script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'pisces';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
-      }
-    });
-  }
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
   </script>
-        <div class="section-box tag-line box-shadow-wrapper">
-          <section class="section tags-section posts-expand bg-color">
-            <div class="padding-wrapper">
-  <div class="tag-timeline-box">
-    <div class="tag-timeline-wrapper">
-      <div class="tag-timeline-title">
-        <h2>
-          Java
-          <small class="language" data-lan="tag">标签</small>
-        </h2>
-      </div>
-      
-      
-      
-      <a href="https://jiangling500.github.io/post/java-zhong-de-jing-tai-dai-ma-kuai/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              01-02
-              <small>Java 静态代码块的工程应用</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://jiangling500.github.io/post/JDBC/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              01-02
-              <small>JDBC</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    </div>
-  </div>
-</div>
-          </section>
-        </div>
-      </div>
-    </div>
-    <div class="footer-box">
-  <footer class="footer">
-    <div class="copyright">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2020 Theme By <a
-        href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a>
-    </div>
-    <div class="poweredby">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
-    </div>
-  </footer>
-  
-  
-  <div class="pisces back-to-top" id="back_to_top">
-    <i class="fa fa-arrow-up"></i>
-    
-    <span class="scrollpercent">
-      <span id="back_to_top_text">0</span>%
-    </span>
-    
-  </div>
-  
-  
-  
-</div>
-<script>
-
-  let sideBarOpen = 'sidebar-open';
-  let body = document.body;
-  let back2Top = document.querySelector('#back_to_top'),
-    back2TopText = document.querySelector('#back_to_top_text'),
-    drawerBox = document.querySelector('#drawer_box'),
-    rightSideBar = document.querySelector('.sidebar'),
-    viewport = document.querySelector('body');
-
-  function scrollAnimation(currentY, targetY) {
-
-    let needScrollTop = targetY - currentY
-    let _currentY = currentY
-    setTimeout(() => {
-      const dist = Math.ceil(needScrollTop / 10)
-      _currentY += dist
-      window.scrollTo(_currentY, currentY)
-      if (needScrollTop > 10 || needScrollTop < -10) {
-        scrollAnimation(_currentY, targetY)
-      } else {
-        window.scrollTo(_currentY, targetY)
-      }
-    }, 1)
-  }
-
-  back2Top.addEventListener("click", function (e) {
-    scrollAnimation(document.scrollingElement.scrollTop, 0);
-    e.stopPropagation();
-    return false;
-  });
-
-  window.addEventListener('scroll', function (e) {
-    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
-    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
-      back2Top.classList.add('back-top-active');
-    }
-    if (percent == 0) {
-      back2Top.classList.remove('back-top-active');
-    }
-    if (back2TopText) {
-      back2TopText.textContent = Math.floor(percent);
-    }
-  });
-
-
-  let hasCacu = false;
-  window.onresize = function () {
-    calcuHeight();
-  }
-
-  function calcuHeight() {
-    // 动态调整站点概览高度
-    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
-      let sideBar = document.querySelector('.sidebar');
-      let navUl = document.querySelector('#site_nav');
-      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
-      hasCacu = true;
-    }
-  }
-  calcuHeight();
-
-  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
-
-  if (drawerBox) {
-    let rightMotions = document.querySelectorAll('.right-motion');
-    let right = drawerBox.classList.contains('right');
-
-    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
-
-    let openProp, closeProp;
-    if (right) {
-      openProp = {
-        paddingRight: RIGHT_MOVE_DIS
-      };
-      closeProp = {
-        paddingRight: '0px'
-      };
-    } else {
-      openProp = {
-        paddingLeft: RIGHT_MOVE_DIS
-      };
-      closeProp = {
-        paddingLeft: '0px'
-      };
-    }
-
-    drawerBox.onclick = function () {
-      open = !open;
-      window.Velocity(rightSideBar, 'stop');
-      window.Velocity(viewport, 'stop');
-      window.Velocity(rightMotions, 'stop');
-      if (open) {
-        window.Velocity(rightSideBar, {
-          width: RIGHT_MOVE_DIS
-        }, {
-          duration: MOTION_TIME,
-          begin: function () {
-            window.Velocity(rightMotions, transitionDir, {});
-          }
-        })
-        window.Velocity(viewport, openProp, {
-          duration: MOTION_TIME
-        });
-      } else {
-        window.Velocity(rightSideBar, {
-          width: '0px'
-        }, {
-          duration: MOTION_TIME,
-          begin: function () {
-            window.Velocity(rightMotions, {
-              opacity: 0
-            });
-          }
-        })
-        window.Velocity(viewport, closeProp, {
-          duration: MOTION_TIME
-        });
-      }
-      for (let i = 0; i < drawerBox.children.length; i++) {
-        drawerBox.children[i].classList.toggle('muse-line');
-      }
-      drawerBox.classList.toggle(sideBarOpen);
-    }
-  }
-
-  // 链接跳转
-  let newWindow = 'false'
-  if (newWindow === 'true') {
-    let links = document.querySelectorAll('.post-body a')
-    links.forEach(item => {
-      if (!item.classList.contains('btn')) {
-        item.setAttribute("target", "_blank");
-      }
-    })
-  }
-
-  let faSearch = document.querySelector('#fa_search');
-  faSearch.addEventListener('click', function () {
-    document.querySelector('#search_mask').style = ''
-  })
-
-  // 代码高亮
-  hljs.initHighlightingOnLoad();
-  
-  // 离开当前页title变化
-  var leaveTitle = "";
-  if (leaveTitle) {
-    document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState == 'hidden') {
-        normal_title = document.title;
-        document.title = leaveTitle;
-      } else {
-        document.title = normal_title;
-      }
-    });
-  }
-
-</script>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-
-<script>
-  let images = document.querySelectorAll('.section img');
-  console.log(images);
-  images.forEach(image => {
-    var parent = image.parentElement;
-    var next = image.nextElementSibling;
-    parent.removeChild(image);
-    var aelem = document.createElement('a');
-    aelem.href = image.src;
-    aelem.dataset['fancybox'] = 'images';
-    aelem.dataset['rel'] = 'fancybox-button';
-    aelem.classList.add('fancybox');
-    aelem.appendChild(image);
-    parent.insertBefore(aelem, next);
-  })
-</script>
-  </div>
-</body>
-
-<div class="search-mask" id="search_mask" style="display: none;">
-  <div class="search-box">
-    <div class="search-title">
-      <i class="fa fa-search"></i>
-      <div class="input-box">
-        <input id="search" type="text" class="language" data-lan="search" placeholder="搜索">
-      </div>
-      <i id="close" class="fa fa-times-circle"></i>
-    </div>
-    <div class="stat-box">
-      <span id="stat_count">0</span><span class="language" data-lan="stat">条相关条目，使用了</span><span id="stat_times">0</span><span class="language" data-lan="stat-time">毫秒</span>
-      <hr>
-    </div>
-    <div class="result" id="result">
-      
-      <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://jiangling500.github.io/post/java-zhong-de-jing-tai-dai-ma-kuai/"" data-c="
-          &lt;p&gt;Java 中的静态代码块在类被加载时，只会被执行一次，那么静态代码块具体有什么用呢？我们在使用 JDBC 访问 MySQL 数据库时，第一步首先要加载 MySQL 驱动 jar 包，第二步就要注册驱动，即调用&lt;code&gt;DriverManager.registerDriver()&lt;/code&gt;函数，但在实际编程中，我们根本没有使用过这个函数，那注册驱动的步骤究竟是谁做的呢？我们通过查看 MySQL 5.1.49 jar 包的源码，具体文件为&lt;code&gt;mysql-connector-java-5.1.49/src/com/mysql/jdbc/Driver.java&lt;/code&gt;：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class Driver extends NonRegisteringDriver implements java.sql.Driver {
-    //
-    // Register ourselves with the DriverManager
-    //
-    static {
-        try {
-            java.sql.DriverManager.registerDriver(new Driver());
-        } catch (SQLException E) {
-            throw new RuntimeException(&amp;quot;Can&#39;t register driver!&amp;quot;);
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;发现在类&lt;code&gt;Driver&lt;/code&gt;中存在静态代码块，而静态代码块所做的事情就是注册驱动，因此在程序中，我们不需要手动注册驱动，只要加载&lt;code&gt;Driver&lt;/code&gt;类即可，即&lt;code&gt;Class.forName(&amp;quot;com.mysql.jdbc.Driver&amp;quot;);&lt;/code&gt;，而且 MySQL 5 之后的 jar 包，甚至还可以省略加载&lt;code&gt;Driver&lt;/code&gt;类的步骤，因为在 jar 中存在配置文件&lt;code&gt;META-INF/services/java.sql.Driver&lt;/code&gt;，TODO。&lt;/p&gt;
-">Java 静态代码块的工程应用</a>
-      </div>
-      
-      <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://jiangling500.github.io/post/MySQL/"" data-c="
-          &lt;h2 id=&#34;其它&#34;&gt;其它&lt;/h2&gt;
-&lt;h3 id=&#34;创建数据库和表的脚本&#34;&gt;创建数据库和表的脚本&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- 创建数据库learjdbc:
-DROP DATABASE IF EXISTS learnjdbc;
-CREATE DATABASE learnjdbc;
-
--- 创建登录用户learn/口令learnpassword
-CREATE USER IF NOT EXISTS learn@&#39;%&#39; IDENTIFIED BY &#39;learnpassword&#39;;
--- MySQL 5.x 版本
--- GRANT ALL PRIVILEGES ON learnjdbc.* TO learn@&#39;%&#39; WITH GRANT OPTION;
-FLUSH PRIVILEGES;
--- MySQL 8.x 版本
-GRANT ALL ON *.* TO &#39;learn&#39;@&#39;%&#39; WITH GRANT OPTION;
-
--- 创建表students:
-USE learnjdbc;
-CREATE TABLE students (
-  id BIGINT AUTO_INCREMENT NOT NULL,
-  name VARCHAR(50) NOT NULL,
-  gender TINYINT(1) NOT NULL,
-  grade INT NOT NULL,
-  score INT NOT NULL,
-  PRIMARY KEY(id)
-) Engine=INNODB DEFAULT CHARSET=UTF8;
-
--- 插入初始数据:
-INSERT INTO students (name, gender, grade, score) VALUES (&#39;小明&#39;, 1, 1, 88);
-INSERT INTO students (name, gender, grade, score) VALUES (&#39;小红&#39;, 1, 1, 95);
-INSERT INTO students (name, gender, grade, score) VALUES (&#39;小军&#39;, 0, 1, 93);
-INSERT INTO students (name, gender, grade, score) VALUES (&#39;小白&#39;, 0, 1, 100);
-INSERT INTO students (name, gender, grade, score) VALUES (&#39;小牛&#39;, 1, 2, 96);
-INSERT INTO students (name, gender, grade, score) VALUES (&#39;小兵&#39;, 1, 2, 99);
-INSERT INTO students (name, gender, grade, score) VALUES (&#39;小强&#39;, 0, 2, 86);
-INSERT INTO students (name, gender, grade, score) VALUES (&#39;小乔&#39;, 0, 2, 79);
-INSERT INTO students (name, gender, grade, score) VALUES (&#39;小青&#39;, 1, 3, 85);
-INSERT INTO students (name, gender, grade, score) VALUES (&#39;小王&#39;, 1, 3, 90);
-INSERT INTO students (name, gender, grade, score) VALUES (&#39;小林&#39;, 0, 3, 91);
-INSERT INTO students (name, gender, grade, score) VALUES (&#39;小贝&#39;, 0, 3, 77);
-&lt;/code&gt;&lt;/pre&gt;
-">MySQL</a>
-      </div>
-      
-      <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://jiangling500.github.io/post/JDBC/"" data-c="
-          &lt;h2 id=&#34;jdbc-本质&#34;&gt;JDBC 本质&lt;/h2&gt;
-&lt;p&gt;官方定义的一套操作所有关系型数据库的规则，即接口，位于 java.sql 包下。各个数据库厂商去实现这套接口，提供数据库驱动 jar 包。我们可以使用这套接口(JDBC)编程，真正执行的代码是驱动 jar 包中的实现类。&lt;/p&gt;
-&lt;h2 id=&#34;下载-mysql-驱动包&#34;&gt;下载 MySQL 驱动包&lt;/h2&gt;
-&lt;p&gt;打开&lt;a href=&#34;https://dev.mysql.com/downloads/connector/j/&#34;&gt;MySQL驱动包官网下载地址&lt;/a&gt;，操作系统选择平台无关的，即&lt;strong&gt;Platform Independent&lt;/strong&gt;，然后下载&lt;strong&gt;zip&lt;/strong&gt;格式的，解压缩后即可得到 MySQL 驱动 jar 包。&lt;/p&gt;
-&lt;h2 id=&#34;导入-jar-包到-idea-中&#34;&gt;导入 jar 包到 idea 中&lt;/h2&gt;
-&lt;h3 id=&#34;方法一&#34;&gt;方法一&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;File&lt;/strong&gt;--&amp;gt;&lt;strong&gt;Project Structure&lt;/strong&gt;--&amp;gt;&lt;strong&gt;Modules&lt;/strong&gt;--&amp;gt;&lt;strong&gt;Dependencies&lt;/strong&gt;--&amp;gt;添加 MySQL 驱动 jar 包。&lt;/p&gt;
-&lt;h3 id=&#34;方法二&#34;&gt;方法二&lt;/h3&gt;
-&lt;p&gt;在 idea 项目中新建 libs 目录，然后复制 MySQL 驱动 jar 包，在 idea 中选择 libs 目录，直接粘贴，即可把 MySQL 驱动 jar 包复制到了 libs 目录中。在 idea 的 libs 目录中，右键 MySQL 驱动 jar 包，选择&lt;strong&gt;Add as Library&lt;/strong&gt;，即可导入 MySQL 驱动 jar 包到项目中。&lt;/p&gt;
-&lt;h3 id=&#34;方法三&#34;&gt;方法三&lt;/h3&gt;
-&lt;p&gt;Maven：TODO&lt;br&gt;
-参考：https://www.liaoxuefeng.com/wiki/1252599548343744/1321748435828770&lt;br&gt;
-重点：scope里要填runtime，而不是compile&lt;/p&gt;
-&lt;h2 id=&#34;编程&#34;&gt;编程&lt;/h2&gt;
-&lt;h3 id=&#34;查询&#34;&gt;查询&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
-    try (PreparedStatement ps = conn.prepareStatement(&amp;quot;SELECT  id, grade, name, gender FROM students WHERE gender = ? AND grade = ?&amp;quot;)) {
-        ps.setObject(1, 1);
-        ps.setObject(2, 3);
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                long id = rs.getLong(&amp;quot;id&amp;quot;);
-                long grade = rs.getLong(&amp;quot;grade&amp;quot;);
-                String name = rs.getString(&amp;quot;name&amp;quot;);
-                boolean gender = rs.getBoolean(&amp;quot;gender&amp;quot;);
-                System.out.println(&amp;quot;id: &amp;quot; + id + &amp;quot;, grade: &amp;quot; + grade + &amp;quot;, name: &amp;quot; + name + &amp;quot;, gender: &amp;quot; + gender);
-            }
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;注意：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;MySQL 的 JDBC URL 格式：&lt;code&gt;jdbc:mysql://&amp;lt;hostname&amp;gt;:&amp;lt;port&amp;gt;/&amp;lt;db&amp;gt;?key1=value1&amp;amp;key2=value2&lt;/code&gt;，如果连接的是本机 MySQL服务器，并且 MySQL 服务器默认端口为 3306，则 URL 可以简写为&lt;code&gt;jdbc:mysql:///&amp;lt;db&amp;gt;&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DriverManager.getConnection()&lt;/code&gt;会自动扫描 classpath，找到所有的 JDBC 驱动，然后根据传入的 URL 自动选择一个合适的驱动&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Connection&lt;/code&gt;、&lt;code&gt;PrepareStatement&lt;/code&gt;以及&lt;code&gt;ResultSet&lt;/code&gt;都是需要关闭的资源，可使用 JDK 7 新语法 &lt;code&gt;try(resource)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;PrepareStatement&lt;/code&gt;，而不是&lt;code&gt;Statement&lt;/code&gt;，可以有效防止 SQL 注入&lt;/li&gt;
-&lt;li&gt;调用&lt;code&gt;PreparedStatement.setObject()&lt;/code&gt;设置占位符&lt;code&gt;?&lt;/code&gt;的值时，索引从 1 开始&lt;/li&gt;
-&lt;li&gt;JDBC 的查询的返回值总是&lt;code&gt;ResultSet&lt;/code&gt;，即使是聚合查询&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ResultSet.next()&lt;/code&gt;用于判断是否有下一行记录，如果有，将自动把当前行移动到下一行(注意，一开始获得&lt;code&gt;ResultSet&lt;/code&gt;时当前行并不是第一行，而是查询列名)&lt;/li&gt;
-&lt;li&gt;如果结果集只可能有 0 或者 1 条记录时，可将&lt;code&gt;ResultSet.next()&lt;/code&gt;方法放在&lt;code&gt;if&lt;/code&gt;语句中，否则必须放在&lt;code&gt;while&lt;/code&gt;语句中&lt;/li&gt;
-&lt;li&gt;从结果集读取列值时，推荐使用&lt;code&gt;String&lt;/code&gt;类型的重载方法，而不是索引，如果要使用索引的话，索引也是从1开始的&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;插入&#34;&gt;插入&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
-    try (PreparedStatement ps = conn.prepareStatement(
-            &amp;quot;INSERT INTO students (grade, name, gender, score) VALUES (?, ?, ?, ?)&amp;quot;,
-            Statement.RETURN_GENERATED_KEYS)) {
-        ps.setObject(1, 1);
-        ps.setObject(2, &amp;quot;Bob&amp;quot;);
-        ps.setObject(3, 1);
-        ps.setObject(4, 98);
-        int n = ps.executeUpdate();
-        System.out.println(&amp;quot;n = &amp;quot; + n);
-        try (ResultSet rs = ps.getGeneratedKeys()) {
-            if (rs.next()) {
-                long id = rs.getLong(1);
-                System.out.println(&amp;quot;id = &amp;quot; + id);
-            }
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;注意：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;执行插入操作使用的是&lt;code&gt;PreparedStatement.executeUpdate()&lt;/code&gt;方法，返回值为成功插入的行数&lt;/li&gt;
-&lt;li&gt;要获取自增主键，不能先插入，再查询，因为两条 SQL 执行期间可能有别的程序也插入了同一个表&lt;/li&gt;
-&lt;li&gt;如果要获取自增主键，在创建&lt;code&gt;PreparedStatement&lt;/code&gt;对象时，必须要传入常量&lt;code&gt;RETURN_GENERATED_KEYS&lt;/code&gt;，表示 JDBC 驱动必须返回插入的自增主键&lt;/li&gt;
-&lt;li&gt;调用&lt;code&gt;PreparedStatement.getGeneratedKeys()&lt;/code&gt;方法返回的&lt;code&gt;ResultSet&lt;/code&gt;对象，如果一次插入多条记录，那么这个&lt;code&gt;ResultSet&lt;/code&gt;对象就会有多行返回值。如果插入时有多列自增，那么&lt;code&gt;ResultSet&lt;/code&gt;对象的每一行都会对应多个自增值&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;更新&#34;&gt;更新&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
-    try (PreparedStatement ps = conn.prepareStatement(&amp;quot;UPDATE students SET name = ? WHERE id = ?&amp;quot;)) {
-        ps.setObject(1, &amp;quot;Bob&amp;quot;);
-        ps.setObject(2, 1000);
-        int n = ps.executeUpdate();
-        System.out.println(&amp;quot;n = &amp;quot; + n);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;注意：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;执行更新操作也是使用的&lt;code&gt;PreparedStatement.executeUpdate()&lt;/code&gt;方法，返回值为成功更新的行数&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;删除&#34;&gt;删除&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
-    try (PreparedStatement ps = conn.prepareStatement(&amp;quot;DELETE from students WHERE id = ?&amp;quot;)) {
-        ps.setObject(1, 1000);
-        int n = ps.executeUpdate();
-        System.out.println(&amp;quot;n = &amp;quot; + n);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;注意：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;执行删除操作也是使用的&lt;code&gt;PreparedStatement.executeUpdate()&lt;/code&gt;方法，返回值为成功删除的行数&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;jdbc-crud-小结&#34;&gt;JDBC CRUD 小结&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;查询操作使用&lt;code&gt;PreparedStatement.executeQuery()&lt;/code&gt;方法，返回类型为&lt;code&gt;ResultSet&lt;/code&gt;的结果集&lt;/li&gt;
-&lt;li&gt;使用 JDBC 执行 INSERT、UPDATE 和 DELETE 都可以视为更新操作，更新操作使用 &lt;code&gt;PreparedStatement.executeUpdate()&lt;/code&gt;方法，返回受影响的行数&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;事务&#34;&gt;事务&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD);
-try {
-    // 关闭自动提交
-    conn.setAutoCommit(false);
-    // 执行多条SQL语句
-    // ...
-    // 提交事务
-    conn.commit();
-} catch (SQLException e) {
-    // 回滚事务
-    conn.rollback();
-} finally {
-    // 恢复自动提交
-    conn.setAutoCommit(true);
-    conn.close();
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;注意：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;默认情况下，我们获取到&lt;code&gt;Connection&lt;/code&gt;连接后，总是处于自动提交模式，也就是每执行一条 SQL 都是作为事务自动执行的，因此只要关闭了&lt;code&gt;Connection&lt;/code&gt;的自动提交，就可以在一个事务中执行多条语句了&lt;/li&gt;
-&lt;li&gt;MySQL 的默认隔离级别是&lt;code&gt;REPEATABLE READ&lt;/code&gt;，可使用&lt;code&gt;Connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED)&lt;/code&gt;更改隔离级别为&lt;code&gt;READ COMMITTED&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;批量执行&#34;&gt;批量执行&lt;/h3&gt;
-&lt;p&gt;使用循环执行批量操作：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;for (var params : paramList) {
-    PreparedStatement ps = conn.preparedStatement(&amp;quot;INSERT INTO student (name, name, grade, score) VALUES (?, ?, ?, ?)&amp;quot;);
-    ps.setString(1, params.get(0));
-    ps.setBoolean(2, params.get(1));
-    ps.setInt(3, params.get(2));
-    ps.setInt(4, params.get(3));
-    ps.executeUpdate();
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;使用 batch 执行批量操作：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;try (PreparedStatement ps = conn.preparedStatement(&amp;quot;INSERT INTO student (name, gender, grade, score) VALUES (?, ?, ?, ?)&amp;quot;)) {
-    // 对同一个 PreparedStatement 反复设置参数并调用 addBatch()
-    for (Student s : students) {
-        ps.setString(1, s.name);
-        ps.setBoolean(2, s.gender);
-        ps.setInt(3, s.grade);
-        ps.setInt(4, s.score);
-        ps.addBatch();
-    }
-    // 执行 batch
-    int[] ns = ps.executeBatch();
-    for (int n : ns) {
-        System.out.println(n + &amp;quot; inserted.&amp;quot;); // batch 中每个 SQL 执行的结果数量
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;两者的不同：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;对于内容相同，参数不同的 SQL，通过一个循环来执行每个&lt;code&gt;PreparedStatement&lt;/code&gt;性能很低，而 batch 操作有特别优化，速度远远快于循环执行每个 SQL&lt;/li&gt;
-&lt;li&gt;batch 操作调用的是&lt;code&gt;PreparedStatement.executeBatch()&lt;/code&gt;，返回类型为&lt;code&gt;int[]&lt;/code&gt;，而不是&lt;code&gt;PreparedStatement.executeUpdate()&lt;/code&gt;，返回类型为&lt;code&gt;int&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;连接池&#34;&gt;连接池&lt;/h2&gt;
-&lt;p&gt;JDBC 连接池有一个标准的接口&lt;code&gt;javax.sql.DataSource&lt;/code&gt;，要使用 JDBC 连接池，必须选择一个 JDBC 的是实现。我们以目前使用最广泛的 HikariCP 为例，首先要导入 HikariCP jar 包，可使用如下两种方式：&lt;/p&gt;
-&lt;h3 id=&#34;jar-包&#34;&gt;jar 包&lt;/h3&gt;
-&lt;p&gt;TODO：jar包下载地址&lt;/p&gt;
-&lt;h3 id=&#34;maven&#34;&gt;Maven&lt;/h3&gt;
-&lt;p&gt;TODO：参考https://www.liaoxuefeng.com/wiki/1252599548343744/1321748528103458&lt;br&gt;
-有了连接池后，在获取&lt;code&gt;Connection&lt;/code&gt;时，就不再使用&lt;code&gt;DriverManger.getConnection()&lt;/code&gt;了，而是使用&lt;code&gt;DataSource.getConnection()&lt;/code&gt;：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;HikariConfig config = new HikariConfig();
-config.setJdbcUrl(&amp;quot;jdbc:mysql://localhost:3306/test&amp;quot;);
-config.setUsername(&amp;quot;root&amp;quot;);
-config.setPassword(&amp;quot;password&amp;quot;);
-config.addDataSourceProperty(&amp;quot;connectionTimeout&amp;quot;, &amp;quot;1000&amp;quot;); // 连接超时：1秒
-config.addDataSourceProperty(&amp;quot;idleTimeout&amp;quot;, &amp;quot;60000&amp;quot;); // 空闲超时：60秒
-config.addDataSourceProperty(&amp;quot;maximumPoolSize&amp;quot;, &amp;quot;10&amp;quot;); // 最大连接数：10
-DataSource ds = new HikariDataSource(config);
-try (Connection conn = ds.getConnection()) { // 在此获取连接
-    // ...
-} // 在此关闭连接
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;注意：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;在&lt;code&gt;try(resource){...}&lt;/code&gt;结束处调用&lt;code&gt;conn.close()&lt;/code&gt;方法时，并不是真的关闭连接，而是将连接释放到连接池中，以便下次获取连接时能直接返回&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;mysql-数据类型与-java-数据类型对应关系&#34;&gt;MySQL 数据类型与 Java 数据类型对应关系&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;BIT&lt;/code&gt;, &lt;code&gt;BOOL&lt;/code&gt;--&amp;gt;&lt;code&gt;boolean&lt;/code&gt;&lt;br&gt;
-&lt;code&gt;INTEGER&lt;/code&gt;--&amp;gt;&lt;code&gt;int&lt;/code&gt;&lt;br&gt;
-&lt;code&gt;BIGINT&lt;/code&gt;--&amp;gt;&lt;code&gt;long&lt;/code&gt;&lt;br&gt;
-&lt;code&gt;REAL&lt;/code&gt;--&amp;gt;&lt;code&gt;float&lt;/code&gt;&lt;br&gt;
-&lt;code&gt;FLOAT&lt;/code&gt;, &lt;code&gt;DOUBLE&lt;/code&gt;--&amp;gt;&lt;code&gt;double&lt;/code&gt;&lt;br&gt;
-&lt;code&gt;CHAR&lt;/code&gt;, &lt;code&gt;VARCHAR&lt;/code&gt;--&amp;gt;&lt;code&gt;String&lt;/code&gt;&lt;br&gt;
-&lt;code&gt;DECIMAL&lt;/code&gt;--&amp;gt;&lt;code&gt;BigDecimal&lt;/code&gt;&lt;br&gt;
-&lt;code&gt;DATE&lt;/code&gt;--&amp;gt;&lt;code&gt;java.sql.Date&lt;/code&gt;, &lt;code&gt;LocalDate&lt;/code&gt;&lt;br&gt;
-&lt;code&gt;TIME&lt;/code&gt;--&amp;gt;&lt;code&gt;java.sql.Time&lt;/code&gt;, &lt;code&gt;LocalTime&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;https://www.liaoxuefeng.com/wiki/1252599548343744&lt;/li&gt;
-&lt;/ul&gt;
-">JDBC</a>
-      </div>
-      
-      <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://jiangling500.github.io/post/guan-yu-gridea/"" data-c="
-          &lt;h2 id=&#34;gridea一同步邮箱就收到github发送的邮件&#34;&gt;Gridea一同步，邮箱就收到Github发送的邮件&lt;/h2&gt;
-&lt;p&gt;邮件内容如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;The page build completed successfully, but returned the following warning for the `main` branch:
-
-Your CNAME file was ignored because this repository is automatically hosted from jiangling500.github.io already. See https://docs.github.com/articles/setting-up-your-pages-site-repository/
-
-For information on troubleshooting Jekyll see:
-
-  https://docs.github.com/articles/troubleshooting-jekyll-builds
-
-If you have any questions you can submit a request on the Contact GitHub page at https://support.github.com/contact?repo_id=325996040&amp;amp;page_build_id=224445559
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;这是因为在&lt;strong&gt;远程&lt;/strong&gt;--&amp;gt;&lt;strong&gt;基础配置&lt;/strong&gt;中有配置过 &lt;strong&gt;CNAME&lt;/strong&gt;，Gridea 在同步时，会上传 CNAME 文件到 Github 上，解决办法就是不让 Gridea 上传 CNAME 文件到 Github 上。但此时即使将 &lt;strong&gt;CNAME&lt;/strong&gt; 配置为空，再点同步仍然会收到邮件，这是因为 Gridea 已经生成了 CNAME 文件，每次在同步时都会将 CNAME 上传至 Github，需要将 Gridea 生成的文件全部删除。具体操作就是，点 Gridea 左下角的配置按钮，打开&lt;strong&gt;站点源文件路径&lt;/strong&gt;，将 Gridea 整个文件夹删除，最好再将 github.io 仓库也删除重新创建，下次再配置&lt;strong&gt;远程&lt;/strong&gt;--&amp;gt;&lt;strong&gt;基础配置&lt;/strong&gt;时，不要配置 &lt;strong&gt;CNAME&lt;/strong&gt;，保持该项为空。至此，Gridea 再同步时就不会再收到 Github 发送的邮件了。&lt;/p&gt;
-">关于Gridea</a>
-      </div>
-      
-      <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://jiangling500.github.io/post/about/"" data-c="
-          &lt;blockquote&gt;
-&lt;p&gt;欢迎来到我的小站呀，很高兴遇见你！🤝&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;关于本站&#34;&gt;🏠 关于本站&lt;/h2&gt;
-&lt;h2 id=&#34;博主是谁&#34;&gt;👨‍💻 博主是谁&lt;/h2&gt;
-&lt;h2 id=&#34;兴趣爱好&#34;&gt;⛹ 兴趣爱好&lt;/h2&gt;
-&lt;h2 id=&#34;联系我呀&#34;&gt;📬 联系我呀&lt;/h2&gt;
-&lt;p&gt;邮箱：jiangling500@163.com&lt;/p&gt;
-">关于</a>
-      </div>
-      
-    </div>
-    <div class="page">
-      <div id="page_ul"></div>
-    </div>
-  </div>
-</div>
-<script>
-  !function () {
-    let searchMask = document.querySelector('#search_mask');
-    let result = document.querySelector('#result');
-    let items = document.querySelectorAll('.item');
-    let searchBox = document.querySelector('#search');
-    let statCount = document.querySelector('#stat_count');
-    let statTimes = document.querySelector('#stat_times');
-    let pageUl = document.querySelector('#page_ul');
-    let close = document.querySelector('#close');
-    
-    close.addEventListener('click', function() {
-      searchMask.style = 'display: none;'
-    })
-
-    let finds = [];
-    let contents = [];
-    let pageSize = 10;
-    items.forEach(item => {
-      let a = item.querySelector('a');
-      contents.push({
-        title: a.innerText,
-        details: a.dataset.c,
-        link: a.href
-      })
-      item.remove();
-    })
-
-    function insertStr(soure, start, count) {
-      let newStr = soure.substr(start, count);
-      return soure.slice(0, start) + '<em>' + newStr + '</em>' + soure.slice(start + count);
-    }
-
-    pageUl.addEventListener('click', function(event) {
-      let target = event.target;
-      if (target.__proto__ === HTMLSpanElement.prototype) {
-        appendResults(parseInt(target.dataset.i));
-      }
-    })
-
-    function appendResults(index) {
-      let htmlResult = '';
-      let start = index || 0;
-      let end = Math.min(start + pageSize, finds.length);
-      for (let i = start; i < end; i++) {
-        const current = finds[i];
-        let html = current.title;
-        let sum = 0;
-        let positions = current.positions;
-        positions.forEach(position => {
-          html = insertStr(html, position.start + sum, position.count);
-          sum += 9;
-        })
-        htmlResult += `<div class="item"><a class="result-title" href="${current.link}">${html}</a></div>`;
-      }
-      result.innerHTML = htmlResult;
-      pageUl.innerHTML = '';
-      let count = finds.length / pageSize;
-      let lis = '';
-      if (start !== 0) {
-        lis += `<span class="fa fa-angle-left" data-i='${start - 1}'></span>`;
-      }
-      for (let i = 0; i < count; i++) {
-        lis += `<span class='${i === start?'current':''}' data-i='${i}'>${i+1}</span>`;     
-      }
-      if (start+1 < count) {
-        lis += `<span class="fa fa-angle-right" data-i='${start+1}'></span>`;  
-      }
-      pageUl.innerHTML = lis;
-    }
-
-    function search(delay) {
-      let timer = null
-      return function () {
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-          let start = Date.now();
-          let segments = searchBox.value.split(' ').filter(c => c != '');
-          if (segments.length <= 0) {
-            return;
-          }
-          finds = [];
-          let htmlResult = '';
-          contents.forEach(content => {
-            let title = content.title;
-            let positions = [];
-            let find = false;
-            segments.forEach((segment) => {
-              if (content.title.includes(segment)) {
-                find = true;
-                positions.push({
-                  start: content.title.indexOf(segment),
-                  count: segment.length
-                })
-              } else if (content.details.includes(segment)) {
-                find = true;
-              }
-            });
-            if (find) {
-              finds.push({
-                title: content.title,
-                link: content.link,
-                positions
-              });
-            }
-          })
-          appendResults(0);
-          statCount.textContent = finds.length;
-          statTimes.textContent = Date.now() - start;
-        }, delay)
-      }
-    }
-    searchBox.addEventListener('input', search(200));
-  }()
-</script>
-
-<input hidden id="copy" />
-<script>
-  !function () {
-    let times = document.querySelectorAll('.publish-time');
-    for (let i = 0; i < times.length; i++) {
-      let date = times[i].dataset.t;
-      let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
-      if (time < 60) {
-        str = time + '秒之前';
-      } else if (time < 3600) {
-        str = Math.floor(time / 60) + '分钟之前';
-      } else if (time >= 3600 && time < 86400) {
-        str = Math.floor(time / 3600) + '小时之前';
-      } else if (time >= 86400 && time < 259200) {
-        str = Math.floor(time / 86400) + '天之前';
-      } else {
-        str = times[i].textContent;
-      }
-      times[i].textContent = str;
-    }
-  }();
-</script>
-
-<script>
-  let language = '';
-  if (language !== '') {
-    let map = new Map();
-    if (language === 'en') {
-      map.set('search', 'Search');
-      map.set('category', 'Categories');
-      map.set('article', 'Articles');
-      map.set('tag', 'Tags');
-      map.set('top', 'Top');
-      map.set('publish', 'published');
-      map.set('minute', ' minutes');
-      map.set('read-more', 'Read More');
-      map.set('view', 'View');
-      map.set('words', ' words');
-      map.set('category-in', 'category in');
-      map.set('preview', 'Meta');
-      map.set('index', 'Toc');
-      map.set('no-archives', "You haven't created yet");
-      map.set('archives', " articles in total");
-      map.set('cloud-tags', " tags in total");
-      map.set('copyright', "Copyright: ");
-      map.set('author', "Author: ");
-      map.set('link', "Link: ");
-      map.set('leave-message', "Leave a message");
-      map.set('format', "Links Format");
-      map.set('site-name', "Name: ");
-      map.set('site-link', "Link: ");
-      map.set('site-desc', "Desc: ");
-      map.set('stat', " related results, taking ");
-      map.set('stat-time', " ms");
-      map.set('site-img', "Image: ");
-    }
-
-    if (map.size > 0) {
-      let lanElems = document.querySelectorAll('.language');
-      lanElems.forEach(elem => {
-        let lan = elem.dataset.lan, text = map.get(lan);
-        if (elem.__proto__ === HTMLInputElement.prototype) {
-          elem.placeholder = text
-        } else {
-          if (elem.dataset.count) {
-            text = elem.dataset.count + text;
-          }
-          elem.textContent = text;
-        }
-      })
-    }
-  }
-  //拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
-  window.Clipboard = (function (window, document, navigator) {
-    var textArea,
-      copy;
-
-    // 判断是不是ios端
-    function isOS() {
-      return navigator.userAgent.match(/ipad|iphone/i);
-    }
-    //创建文本元素
-    function createTextArea(text) {
-      textArea = document.createElement('textArea');
-      textArea.value = text;
-      textArea.style.width = 0;
-      textArea.style.height = 0;
-      textArea.clientHeight = 0;
-      textArea.clientWidth = 0;
-      document.body.appendChild(textArea);
-    }
-    //选择内容
-    function selectText() {
-      var range,
-        selection;
-
-      if (isOS()) {
-        range = document.createRange();
-        range.selectNodeContents(textArea);
-        selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(range);
-        textArea.setSelectionRange(0, 999999);
-      } else {
-        textArea.select();
-      }
-    }
-
-    //复制到剪贴板
-    function copyToClipboard() {
-      try {
-        document.execCommand("Copy")
-      } catch (err) {
-        alert("复制错误！请手动复制！")
-      }
-      document.body.removeChild(textArea);
-    }
-
-    copy = function (text) {
-      createTextArea(text);
-      selectText();
-      copyToClipboard();
-    };
-
-    return {
-      copy: copy
-    };
-  })(window, document, navigator);
-
-  function copyCode(e) {
-    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
-      let code = e.currentTarget.querySelector('code');
-      var text = code.innerText;
-      if (e.srcElement.textContent === '复制成功') {
-        return;
-      }
-      e.srcElement.textContent = '复制成功';
-      (function (elem) {
-        setTimeout(() => {
-          if (elem.textContent === '复制成功') {
-            elem.textContent = '复制代码'
-          }
-        }, 1000);
-      })(e.srcElement)
-      Clipboard.copy(text);
-    }
-  }
-
-  let pres = document.querySelectorAll('pre');
-  pres.forEach(pre => {
-    let code = pre.querySelector('code');
-    let copyElem = document.createElement('span');
-    copyElem.classList.add('copy-code');
-    copyElem.textContent = '复制代码';
-    pre.appendChild(copyElem);
-    pre.onclick = copyCode
-  })
-
-</script>
-<script src="/media/js/motion.js"></script>
-
-
-<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-<script>
-  var scroll = new SmoothScroll('a[href*="#"]', {
-    speed: 200
-  });
-</script>
 
 
 
 
 
-
+  </body>
 </html>
