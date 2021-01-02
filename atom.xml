@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jiangling500.github.io</id>
     <title>jiangling500</title>
-    <updated>2021-01-02T07:05:19.687Z</updated>
+    <updated>2021-01-02T07:07:05.849Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jiangling500.github.io"/>
     <link rel="self" href="https://jiangling500.github.io/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>https://jiangling500.github.io/images/avatar.png</logo>
     <icon>https://jiangling500.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, jiangling500</rights>
+    <entry>
+        <title type="html"><![CDATA[MySQL]]></title>
+        <id>https://jiangling500.github.io/post/mysql/</id>
+        <link href="https://jiangling500.github.io/post/mysql/">
+        </link>
+        <updated>2021-01-02T07:05:28.000Z</updated>
+        <content type="html"><![CDATA[<p>查看 MySQL 支持的存储引擎：</p>
+<pre><code>SHOW ENGINES;
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[JDBC]]></title>
         <id>https://jiangling500.github.io/post/Java/</id>
