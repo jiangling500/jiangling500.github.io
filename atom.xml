@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jiangling500.github.io</id>
     <title>jiangling500</title>
-    <updated>2021-01-02T07:53:46.403Z</updated>
+    <updated>2021-01-02T11:56:41.860Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jiangling500.github.io"/>
     <link rel="self" href="https://jiangling500.github.io/atom.xml"/>
@@ -11,13 +11,72 @@
     <icon>https://jiangling500.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, jiangling500</rights>
     <entry>
+        <title type="html"><![CDATA[Java 静态代码块的工程应用]]></title>
+        <id>https://jiangling500.github.io/post/java-zhong-de-jing-tai-dai-ma-kuai/</id>
+        <link href="https://jiangling500.github.io/post/java-zhong-de-jing-tai-dai-ma-kuai/">
+        </link>
+        <updated>2021-01-02T11:27:23.000Z</updated>
+        <content type="html"><![CDATA[<p>Java 中的静态代码块在类被加载时，只会被执行一次，那么静态代码块具体有什么用呢？我们在使用 JDBC 访问 MySQL 数据库时，第一步首先要加载 MySQL 驱动 jar 包，第二步就要注册驱动，即调用<code>DriverManager.registerDriver()</code>函数，但在实际编程中，我们根本没有使用过这个函数，那注册驱动的步骤究竟是谁做的呢？我们通过查看 MySQL 5.1.49 jar 包的源码，具体文件为<code>mysql-connector-java-5.1.49/src/com/mysql/jdbc/Driver.java</code>：</p>
+<pre><code class="language-java">public class Driver extends NonRegisteringDriver implements java.sql.Driver {
+    //
+    // Register ourselves with the DriverManager
+    //
+    static {
+        try {
+            java.sql.DriverManager.registerDriver(new Driver());
+        } catch (SQLException E) {
+            throw new RuntimeException(&quot;Can't register driver!&quot;);
+        }
+    }
+}
+</code></pre>
+<p>发现在类<code>Driver</code>中存在静态代码块，而静态代码块所做的事情就是注册驱动，因此在程序中，我们不需要手动注册驱动，只要加载<code>Driver</code>类即可，即<code>Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</code>，而且 MySQL 5 之后的 jar 包，甚至还可以省略加载<code>Driver</code>类的步骤，因为在 jar 中存在配置文件<code>META-INF/services/java.sql.Driver</code>，TODO。</p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[MySQL]]></title>
-        <id>https://jiangling500.github.io/post/java_JDBC/</id>
-        <link href="https://jiangling500.github.io/post/java_JDBC/">
+        <id>https://jiangling500.github.io/post/MySQL/</id>
+        <link href="https://jiangling500.github.io/post/MySQL/">
         </link>
         <updated>2021-01-02T07:05:28.000Z</updated>
-        <content type="html"><![CDATA[<p>查看 MySQL 支持的存储引擎：</p>
-<pre><code>SHOW ENGINES;
+        <content type="html"><![CDATA[<h2 id="其它">其它</h2>
+<h3 id="创建数据库和表的脚本">创建数据库和表的脚本</h3>
+<pre><code class="language-sql">-- 创建数据库learjdbc:
+DROP DATABASE IF EXISTS learnjdbc;
+CREATE DATABASE learnjdbc;
+
+-- 创建登录用户learn/口令learnpassword
+CREATE USER IF NOT EXISTS learn@'%' IDENTIFIED BY 'learnpassword';
+-- MySQL 5.x 版本
+-- GRANT ALL PRIVILEGES ON learnjdbc.* TO learn@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+-- MySQL 8.x 版本
+GRANT ALL ON *.* TO 'learn'@'%' WITH GRANT OPTION;
+
+-- 创建表students:
+USE learnjdbc;
+CREATE TABLE students (
+  id BIGINT AUTO_INCREMENT NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  gender TINYINT(1) NOT NULL,
+  grade INT NOT NULL,
+  score INT NOT NULL,
+  PRIMARY KEY(id)
+) Engine=INNODB DEFAULT CHARSET=UTF8;
+
+-- 插入初始数据:
+INSERT INTO students (name, gender, grade, score) VALUES ('小明', 1, 1, 88);
+INSERT INTO students (name, gender, grade, score) VALUES ('小红', 1, 1, 95);
+INSERT INTO students (name, gender, grade, score) VALUES ('小军', 0, 1, 93);
+INSERT INTO students (name, gender, grade, score) VALUES ('小白', 0, 1, 100);
+INSERT INTO students (name, gender, grade, score) VALUES ('小牛', 1, 2, 96);
+INSERT INTO students (name, gender, grade, score) VALUES ('小兵', 1, 2, 99);
+INSERT INTO students (name, gender, grade, score) VALUES ('小强', 0, 2, 86);
+INSERT INTO students (name, gender, grade, score) VALUES ('小乔', 0, 2, 79);
+INSERT INTO students (name, gender, grade, score) VALUES ('小青', 1, 3, 85);
+INSERT INTO students (name, gender, grade, score) VALUES ('小王', 1, 3, 90);
+INSERT INTO students (name, gender, grade, score) VALUES ('小林', 0, 3, 91);
+INSERT INTO students (name, gender, grade, score) VALUES ('小贝', 0, 3, 77);
 </code></pre>
 ]]></content>
     </entry>
@@ -28,7 +87,7 @@
         </link>
         <updated>2021-01-02T05:12:41.000Z</updated>
         <content type="html"><![CDATA[<h2 id="jdbc-本质">JDBC 本质</h2>
-<p>官方定义的一套操作所有关系型数据库的规则，即接口。各个数据库厂商去实现这套接口，提供数据库驱动 jar 包。我们可以使用这套接口(JDBC)编程，真正执行的代码是驱动 jar 包中的实现类。</p>
+<p>官方定义的一套操作所有关系型数据库的规则，即接口，位于 java.sql 包下。各个数据库厂商去实现这套接口，提供数据库驱动 jar 包。我们可以使用这套接口(JDBC)编程，真正执行的代码是驱动 jar 包中的实现类。</p>
 <h2 id="下载-mysql-驱动包">下载 MySQL 驱动包</h2>
 <p>打开<a href="https://dev.mysql.com/downloads/connector/j/">MySQL驱动包官网下载地址</a>，操作系统选择平台无关的，即<strong>Platform Independent</strong>，然后下载<strong>zip</strong>格式的，解压缩后即可得到 MySQL 驱动 jar 包。</p>
 <h2 id="导入-jar-包到-idea-中">导入 jar 包到 idea 中</h2>
@@ -36,7 +95,48 @@
 <p><strong>File</strong>--&gt;<strong>Project Structure</strong>--&gt;<strong>Modules</strong>--&gt;<strong>Dependencies</strong>--&gt;添加 MySQL 驱动 jar 包。</p>
 <h3 id="方法二">方法二</h3>
 <p>在 idea 项目中新建 libs 目录，然后复制 MySQL 驱动 jar 包，在 idea 中选择 libs 目录，直接粘贴，即可把 MySQL 驱动 jar 包复制到了 libs 目录中。在 idea 的 libs 目录中，右键 MySQL 驱动 jar 包，选择<strong>Add as Library</strong>，即可导入 MySQL 驱动 jar 包到项目中。</p>
-<p>java.sql包下的接口</p>
+<h3 id="方法三">方法三</h3>
+<p>Maven：TODO<br>
+参考：https://www.liaoxuefeng.com/wiki/1252599548343744/1321748435828770<br>
+重点：scope里要填runtime，而不是compile</p>
+<h2 id="编程">编程</h2>
+<pre><code class="language-java">String JDBC_URL = &quot;jdbc:mysql://localhost:3306/learnjdbc&quot;;
+String JDBC_USER = &quot;learn&quot;;
+String JDBC_PASSWD = &quot;learnpassword&quot;;
+try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
+    try (PreparedStatement ps = conn.prepareStatement(&quot;SELECT  id, grade, name, gender FROM students WHERE gender = ? AND grade = ?&quot;)) {
+        ps.setObject(1, &quot;M&quot;);
+        ps.setObject(2, 3);
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                long id = rs.getLong(&quot;id&quot;);
+                long grade = rs.getLong(&quot;grade&quot;);
+                String name = rs.getString(&quot;name&quot;);
+                String gender = rs.getString(&quot;gender&quot;);
+                System.out.println(&quot;id: &quot; + id + &quot;, grade: &quot; + grade + &quot;, name: &quot; + name + &quot;, gender: &quot; + gender);
+            }
+        }
+    }
+}
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>MySQL 的 JDBC URL 格式：<code>jdbc:mysql://&lt;hostname&gt;:&lt;port&gt;/&lt;db&gt;?key1=value1&amp;key2=value2</code></li>
+<li><code>DriverManager.getConnection()</code>会自动扫描 classpath，找到所有的 JDBC 驱动，然后根据传入的 URL 自动选择一个合适的驱动</li>
+<li><code>Connection</code>、<code>PrepareStatement</code>以及<code>ResultSet</code>都是需要关闭的资源，可使用 JDK 7 新语法 <code>try(resource)</code></li>
+<li>使用<code>PrepareStatement</code>，而不是<code>Statement</code>，可以有效防止 SQL 注入</li>
+<li>JDBC 的查询的返回值总是<code>ResultSet</code>，即使是聚合查询</li>
+</ul>
+<h2 id="mysql-数据类型与-java-数据类型对应关系">MySQL 数据类型与 Java 数据类型对应关系</h2>
+<p><code>BIT</code>, <code>BOOL</code>--&gt;<code>boolean</code><br>
+<code>INTEGER</code>--&gt;<code>int</code><br>
+<code>BIGINT</code>--&gt;<code>long</code><br>
+<code>REAL</code>--&gt;<code>float</code><br>
+<code>FLOAT</code>, <code>DOUBLE</code>--&gt;<code>double</code><br>
+<code>CHAR</code>, <code>VARCHAR</code>--&gt;<code>String</code><br>
+<code>DECIMAL</code>--&gt;<code>BigDecimal</code><br>
+<code>DATE</code>--&gt;<code>java.sql.Date</code>, <code>LocalDate</code><br>
+<code>TIME</code>--&gt;<code>java.sql.Time</code>, <code>LocalTime</code></p>
 ]]></content>
     </entry>
     <entry>
