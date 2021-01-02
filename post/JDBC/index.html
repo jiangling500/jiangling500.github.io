@@ -9,7 +9,7 @@
 <meta name="description" content="万丈高楼平地起，勿在浮沙筑高台！">
 <meta name="theme-color" content="#000">
 <title>JDBC | jiangling500</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1609588600221">
+<link rel="shortcut icon" href="/favicon.ico?v=1609599357571">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -244,8 +244,25 @@
 <li><a href="#%E6%96%B9%E6%B3%95%E4%B8%89">方法三</a></li>
 </ul>
 </li>
-<li><a href="#%E7%BC%96%E7%A8%8B">编程</a></li>
+<li><a href="#%E7%BC%96%E7%A8%8B">编程</a>
+<ul>
+<li><a href="#%E6%9F%A5%E8%AF%A2">查询</a></li>
+<li><a href="#%E6%8F%92%E5%85%A5">插入</a></li>
+<li><a href="#%E6%9B%B4%E6%96%B0">更新</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4">删除</a></li>
+<li><a href="#jdbc-crud-%E5%B0%8F%E7%BB%93">JDBC CRUD 小结</a></li>
+<li><a href="#%E4%BA%8B%E5%8A%A1">事务</a></li>
+<li><a href="#%E6%89%B9%E9%87%8F%E6%89%A7%E8%A1%8C">批量执行</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BF%9E%E6%8E%A5%E6%B1%A0">连接池</a>
+<ul>
+<li><a href="#jar-%E5%8C%85">jar 包</a></li>
+<li><a href="#maven">Maven</a></li>
+</ul>
+</li>
 <li><a href="#mysql-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E-java-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB">MySQL 数据类型与 Java 数据类型对应关系</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 </li>
 </ul>
@@ -541,12 +558,12 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>3<span class="language" data-lan="minute">分钟</span></span>
+      <span>8<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>549<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1811<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
@@ -574,19 +591,17 @@
 参考：https://www.liaoxuefeng.com/wiki/1252599548343744/1321748435828770<br>
 重点：scope里要填runtime，而不是compile</p>
 <h2 id="编程">编程</h2>
-<pre><code class="language-java">String JDBC_URL = &quot;jdbc:mysql://localhost:3306/learnjdbc&quot;;
-String JDBC_USER = &quot;learn&quot;;
-String JDBC_PASSWD = &quot;learnpassword&quot;;
-try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
+<h3 id="查询">查询</h3>
+<pre><code class="language-java">try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
     try (PreparedStatement ps = conn.prepareStatement(&quot;SELECT  id, grade, name, gender FROM students WHERE gender = ? AND grade = ?&quot;)) {
-        ps.setObject(1, &quot;M&quot;);
+        ps.setObject(1, 1);
         ps.setObject(2, 3);
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 long id = rs.getLong(&quot;id&quot;);
                 long grade = rs.getLong(&quot;grade&quot;);
                 String name = rs.getString(&quot;name&quot;);
-                String gender = rs.getString(&quot;gender&quot;);
+                boolean gender = rs.getBoolean(&quot;gender&quot;);
                 System.out.println(&quot;id: &quot; + id + &quot;, grade: &quot; + grade + &quot;, name: &quot; + name + &quot;, gender: &quot; + gender);
             }
         }
@@ -595,11 +610,153 @@ try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PAS
 </code></pre>
 <p>注意：</p>
 <ul>
-<li>MySQL 的 JDBC URL 格式：<code>jdbc:mysql://&lt;hostname&gt;:&lt;port&gt;/&lt;db&gt;?key1=value1&amp;key2=value2</code></li>
+<li>MySQL 的 JDBC URL 格式：<code>jdbc:mysql://&lt;hostname&gt;:&lt;port&gt;/&lt;db&gt;?key1=value1&amp;key2=value2</code>，如果连接的是本机 MySQL服务器，并且 MySQL 服务器默认端口为 3306，则 URL 可以简写为<code>jdbc:mysql:///&lt;db&gt;</code></li>
 <li><code>DriverManager.getConnection()</code>会自动扫描 classpath，找到所有的 JDBC 驱动，然后根据传入的 URL 自动选择一个合适的驱动</li>
 <li><code>Connection</code>、<code>PrepareStatement</code>以及<code>ResultSet</code>都是需要关闭的资源，可使用 JDK 7 新语法 <code>try(resource)</code></li>
 <li>使用<code>PrepareStatement</code>，而不是<code>Statement</code>，可以有效防止 SQL 注入</li>
+<li>调用<code>PreparedStatement.setObject()</code>设置占位符<code>?</code>的值时，索引从 1 开始</li>
 <li>JDBC 的查询的返回值总是<code>ResultSet</code>，即使是聚合查询</li>
+<li><code>ResultSet.next()</code>用于判断是否有下一行记录，如果有，将自动把当前行移动到下一行(注意，一开始获得<code>ResultSet</code>时当前行并不是第一行，而是查询列名)</li>
+<li>如果结果集只可能有 0 或者 1 条记录时，可将<code>ResultSet.next()</code>方法放在<code>if</code>语句中，否则必须放在<code>while</code>语句中</li>
+<li>从结果集读取列值时，推荐使用<code>String</code>类型的重载方法，而不是索引，如果要使用索引的话，索引也是从1开始的</li>
+</ul>
+<h3 id="插入">插入</h3>
+<pre><code class="language-java">try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
+    try (PreparedStatement ps = conn.prepareStatement(
+            &quot;INSERT INTO students (grade, name, gender, score) VALUES (?, ?, ?, ?)&quot;,
+            Statement.RETURN_GENERATED_KEYS)) {
+        ps.setObject(1, 1);
+        ps.setObject(2, &quot;Bob&quot;);
+        ps.setObject(3, 1);
+        ps.setObject(4, 98);
+        int n = ps.executeUpdate();
+        System.out.println(&quot;n = &quot; + n);
+        try (ResultSet rs = ps.getGeneratedKeys()) {
+            if (rs.next()) {
+                long id = rs.getLong(1);
+                System.out.println(&quot;id = &quot; + id);
+            }
+        }
+    }
+}
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>执行插入操作使用的是<code>PreparedStatement.executeUpdate()</code>方法，返回值为成功插入的行数</li>
+<li>要获取自增主键，不能先插入，再查询，因为两条 SQL 执行期间可能有别的程序也插入了同一个表</li>
+<li>如果要获取自增主键，在创建<code>PreparedStatement</code>对象时，必须要传入常量<code>RETURN_GENERATED_KEYS</code>，表示 JDBC 驱动必须返回插入的自增主键</li>
+<li>调用<code>PreparedStatement.getGeneratedKeys()</code>方法返回的<code>ResultSet</code>对象，如果一次插入多条记录，那么这个<code>ResultSet</code>对象就会有多行返回值。如果插入时有多列自增，那么<code>ResultSet</code>对象的每一行都会对应多个自增值</li>
+</ul>
+<h3 id="更新">更新</h3>
+<pre><code class="language-java">try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
+    try (PreparedStatement ps = conn.prepareStatement(&quot;UPDATE students SET name = ? WHERE id = ?&quot;)) {
+        ps.setObject(1, &quot;Bob&quot;);
+        ps.setObject(2, 1000);
+        int n = ps.executeUpdate();
+        System.out.println(&quot;n = &quot; + n);
+    }
+}
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>执行更新操作也是使用的<code>PreparedStatement.executeUpdate()</code>方法，返回值为成功更新的行数</li>
+</ul>
+<h3 id="删除">删除</h3>
+<pre><code class="language-java">try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
+    try (PreparedStatement ps = conn.prepareStatement(&quot;DELETE from students WHERE id = ?&quot;)) {
+        ps.setObject(1, 1000);
+        int n = ps.executeUpdate();
+        System.out.println(&quot;n = &quot; + n);
+    }
+}
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>执行删除操作也是使用的<code>PreparedStatement.executeUpdate()</code>方法，返回值为成功删除的行数</li>
+</ul>
+<h3 id="jdbc-crud-小结">JDBC CRUD 小结</h3>
+<ul>
+<li>查询操作使用<code>PreparedStatement.executeQuery()</code>方法，返回类型为<code>ResultSet</code>的结果集</li>
+<li>使用 JDBC 执行 INSERT、UPDATE 和 DELETE 都可以视为更新操作，更新操作使用 <code>PreparedStatement.executeUpdate()</code>方法，返回受影响的行数</li>
+</ul>
+<h3 id="事务">事务</h3>
+<pre><code class="language-java">Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD);
+try {
+    // 关闭自动提交
+    conn.setAutoCommit(false);
+    // 执行多条SQL语句
+    // ...
+    // 提交事务
+    conn.commit();
+} catch (SQLException e) {
+    // 回滚事务
+    conn.rollback();
+} finally {
+    // 恢复自动提交
+    conn.setAutoCommit(true);
+    conn.close();
+}
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>默认情况下，我们获取到<code>Connection</code>连接后，总是处于自动提交模式，也就是每执行一条 SQL 都是作为事务自动执行的，因此只要关闭了<code>Connection</code>的自动提交，就可以在一个事务中执行多条语句了</li>
+<li>MySQL 的默认隔离级别是<code>REPEATABLE READ</code>，可使用<code>Connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED)</code>更改隔离级别为<code>READ COMMITTED</code></li>
+</ul>
+<h3 id="批量执行">批量执行</h3>
+<p>使用循环执行批量操作：</p>
+<pre><code class="language-java">for (var params : paramList) {
+    PreparedStatement ps = conn.preparedStatement(&quot;INSERT INTO student (name, name, grade, score) VALUES (?, ?, ?, ?)&quot;);
+    ps.setString(1, params.get(0));
+    ps.setBoolean(2, params.get(1));
+    ps.setInt(3, params.get(2));
+    ps.setInt(4, params.get(3));
+    ps.executeUpdate();
+}
+</code></pre>
+<p>使用 batch 执行批量操作：</p>
+<pre><code class="language-java">try (PreparedStatement ps = conn.preparedStatement(&quot;INSERT INTO student (name, gender, grade, score) VALUES (?, ?, ?, ?)&quot;)) {
+    // 对同一个 PreparedStatement 反复设置参数并调用 addBatch()
+    for (Student s : students) {
+        ps.setString(1, s.name);
+        ps.setBoolean(2, s.gender);
+        ps.setInt(3, s.grade);
+        ps.setInt(4, s.score);
+        ps.addBatch();
+    }
+    // 执行 batch
+    int[] ns = ps.executeBatch();
+    for (int n : ns) {
+        System.out.println(n + &quot; inserted.&quot;); // batch 中每个 SQL 执行的结果数量
+    }
+}
+</code></pre>
+<p>两者的不同：</p>
+<ul>
+<li>对于内容相同，参数不同的 SQL，通过一个循环来执行每个<code>PreparedStatement</code>性能很低，而 batch 操作有特别优化，速度远远快于循环执行每个 SQL</li>
+<li>batch 操作调用的是<code>PreparedStatement.executeBatch()</code>，返回类型为<code>int[]</code>，而不是<code>PreparedStatement.executeUpdate()</code>，返回类型为<code>int</code></li>
+</ul>
+<h2 id="连接池">连接池</h2>
+<p>JDBC 连接池有一个标准的接口<code>javax.sql.DataSource</code>，要使用 JDBC 连接池，必须选择一个 JDBC 的是实现。我们以目前使用最广泛的 HikariCP 为例，首先要导入 HikariCP jar 包，可使用如下两种方式：</p>
+<h3 id="jar-包">jar 包</h3>
+<p>TODO：jar包下载地址</p>
+<h3 id="maven">Maven</h3>
+<p>TODO：参考https://www.liaoxuefeng.com/wiki/1252599548343744/1321748528103458<br>
+有了连接池后，在获取<code>Connection</code>时，就不再使用<code>DriverManger.getConnection()</code>了，而是使用<code>DataSource.getConnection()</code>：</p>
+<pre><code class="language-java">HikariConfig config = new HikariConfig();
+config.setJdbcUrl(&quot;jdbc:mysql://localhost:3306/test&quot;);
+config.setUsername(&quot;root&quot;);
+config.setPassword(&quot;password&quot;);
+config.addDataSourceProperty(&quot;connectionTimeout&quot;, &quot;1000&quot;); // 连接超时：1秒
+config.addDataSourceProperty(&quot;idleTimeout&quot;, &quot;60000&quot;); // 空闲超时：60秒
+config.addDataSourceProperty(&quot;maximumPoolSize&quot;, &quot;10&quot;); // 最大连接数：10
+DataSource ds = new HikariDataSource(config);
+try (Connection conn = ds.getConnection()) { // 在此获取连接
+    // ...
+} // 在此关闭连接
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>在<code>try(resource){...}</code>结束处调用<code>conn.close()</code>方法时，并不是真的关闭连接，而是将连接释放到连接池中，以便下次获取连接时能直接返回</li>
 </ul>
 <h2 id="mysql-数据类型与-java-数据类型对应关系">MySQL 数据类型与 Java 数据类型对应关系</h2>
 <p><code>BIT</code>, <code>BOOL</code>--&gt;<code>boolean</code><br>
@@ -611,6 +768,10 @@ try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PAS
 <code>DECIMAL</code>--&gt;<code>BigDecimal</code><br>
 <code>DATE</code>--&gt;<code>java.sql.Date</code>, <code>LocalDate</code><br>
 <code>TIME</code>--&gt;<code>java.sql.Time</code>, <code>LocalTime</code></p>
+<h2 id="参考">参考</h2>
+<ul>
+<li>https://www.liaoxuefeng.com/wiki/1252599548343744</li>
+</ul>
 
             </div>
             
@@ -1178,19 +1339,17 @@ INSERT INTO students (name, gender, grade, score) VALUES (&#39;小贝&#39;, 0, 3
 参考：https://www.liaoxuefeng.com/wiki/1252599548343744/1321748435828770&lt;br&gt;
 重点：scope里要填runtime，而不是compile&lt;/p&gt;
 &lt;h2 id=&#34;编程&#34;&gt;编程&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;String JDBC_URL = &amp;quot;jdbc:mysql://localhost:3306/learnjdbc&amp;quot;;
-String JDBC_USER = &amp;quot;learn&amp;quot;;
-String JDBC_PASSWD = &amp;quot;learnpassword&amp;quot;;
-try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
+&lt;h3 id=&#34;查询&#34;&gt;查询&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
     try (PreparedStatement ps = conn.prepareStatement(&amp;quot;SELECT  id, grade, name, gender FROM students WHERE gender = ? AND grade = ?&amp;quot;)) {
-        ps.setObject(1, &amp;quot;M&amp;quot;);
+        ps.setObject(1, 1);
         ps.setObject(2, 3);
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 long id = rs.getLong(&amp;quot;id&amp;quot;);
                 long grade = rs.getLong(&amp;quot;grade&amp;quot;);
                 String name = rs.getString(&amp;quot;name&amp;quot;);
-                String gender = rs.getString(&amp;quot;gender&amp;quot;);
+                boolean gender = rs.getBoolean(&amp;quot;gender&amp;quot;);
                 System.out.println(&amp;quot;id: &amp;quot; + id + &amp;quot;, grade: &amp;quot; + grade + &amp;quot;, name: &amp;quot; + name + &amp;quot;, gender: &amp;quot; + gender);
             }
         }
@@ -1199,11 +1358,153 @@ try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PAS
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;注意：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;MySQL 的 JDBC URL 格式：&lt;code&gt;jdbc:mysql://&amp;lt;hostname&amp;gt;:&amp;lt;port&amp;gt;/&amp;lt;db&amp;gt;?key1=value1&amp;amp;key2=value2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;MySQL 的 JDBC URL 格式：&lt;code&gt;jdbc:mysql://&amp;lt;hostname&amp;gt;:&amp;lt;port&amp;gt;/&amp;lt;db&amp;gt;?key1=value1&amp;amp;key2=value2&lt;/code&gt;，如果连接的是本机 MySQL服务器，并且 MySQL 服务器默认端口为 3306，则 URL 可以简写为&lt;code&gt;jdbc:mysql:///&amp;lt;db&amp;gt;&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;DriverManager.getConnection()&lt;/code&gt;会自动扫描 classpath，找到所有的 JDBC 驱动，然后根据传入的 URL 自动选择一个合适的驱动&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Connection&lt;/code&gt;、&lt;code&gt;PrepareStatement&lt;/code&gt;以及&lt;code&gt;ResultSet&lt;/code&gt;都是需要关闭的资源，可使用 JDK 7 新语法 &lt;code&gt;try(resource)&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;使用&lt;code&gt;PrepareStatement&lt;/code&gt;，而不是&lt;code&gt;Statement&lt;/code&gt;，可以有效防止 SQL 注入&lt;/li&gt;
+&lt;li&gt;调用&lt;code&gt;PreparedStatement.setObject()&lt;/code&gt;设置占位符&lt;code&gt;?&lt;/code&gt;的值时，索引从 1 开始&lt;/li&gt;
 &lt;li&gt;JDBC 的查询的返回值总是&lt;code&gt;ResultSet&lt;/code&gt;，即使是聚合查询&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ResultSet.next()&lt;/code&gt;用于判断是否有下一行记录，如果有，将自动把当前行移动到下一行(注意，一开始获得&lt;code&gt;ResultSet&lt;/code&gt;时当前行并不是第一行，而是查询列名)&lt;/li&gt;
+&lt;li&gt;如果结果集只可能有 0 或者 1 条记录时，可将&lt;code&gt;ResultSet.next()&lt;/code&gt;方法放在&lt;code&gt;if&lt;/code&gt;语句中，否则必须放在&lt;code&gt;while&lt;/code&gt;语句中&lt;/li&gt;
+&lt;li&gt;从结果集读取列值时，推荐使用&lt;code&gt;String&lt;/code&gt;类型的重载方法，而不是索引，如果要使用索引的话，索引也是从1开始的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;插入&#34;&gt;插入&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
+    try (PreparedStatement ps = conn.prepareStatement(
+            &amp;quot;INSERT INTO students (grade, name, gender, score) VALUES (?, ?, ?, ?)&amp;quot;,
+            Statement.RETURN_GENERATED_KEYS)) {
+        ps.setObject(1, 1);
+        ps.setObject(2, &amp;quot;Bob&amp;quot;);
+        ps.setObject(3, 1);
+        ps.setObject(4, 98);
+        int n = ps.executeUpdate();
+        System.out.println(&amp;quot;n = &amp;quot; + n);
+        try (ResultSet rs = ps.getGeneratedKeys()) {
+            if (rs.next()) {
+                long id = rs.getLong(1);
+                System.out.println(&amp;quot;id = &amp;quot; + id);
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;注意：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;执行插入操作使用的是&lt;code&gt;PreparedStatement.executeUpdate()&lt;/code&gt;方法，返回值为成功插入的行数&lt;/li&gt;
+&lt;li&gt;要获取自增主键，不能先插入，再查询，因为两条 SQL 执行期间可能有别的程序也插入了同一个表&lt;/li&gt;
+&lt;li&gt;如果要获取自增主键，在创建&lt;code&gt;PreparedStatement&lt;/code&gt;对象时，必须要传入常量&lt;code&gt;RETURN_GENERATED_KEYS&lt;/code&gt;，表示 JDBC 驱动必须返回插入的自增主键&lt;/li&gt;
+&lt;li&gt;调用&lt;code&gt;PreparedStatement.getGeneratedKeys()&lt;/code&gt;方法返回的&lt;code&gt;ResultSet&lt;/code&gt;对象，如果一次插入多条记录，那么这个&lt;code&gt;ResultSet&lt;/code&gt;对象就会有多行返回值。如果插入时有多列自增，那么&lt;code&gt;ResultSet&lt;/code&gt;对象的每一行都会对应多个自增值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;更新&#34;&gt;更新&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
+    try (PreparedStatement ps = conn.prepareStatement(&amp;quot;UPDATE students SET name = ? WHERE id = ?&amp;quot;)) {
+        ps.setObject(1, &amp;quot;Bob&amp;quot;);
+        ps.setObject(2, 1000);
+        int n = ps.executeUpdate();
+        System.out.println(&amp;quot;n = &amp;quot; + n);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;注意：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;执行更新操作也是使用的&lt;code&gt;PreparedStatement.executeUpdate()&lt;/code&gt;方法，返回值为成功更新的行数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;删除&#34;&gt;删除&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD)) {
+    try (PreparedStatement ps = conn.prepareStatement(&amp;quot;DELETE from students WHERE id = ?&amp;quot;)) {
+        ps.setObject(1, 1000);
+        int n = ps.executeUpdate();
+        System.out.println(&amp;quot;n = &amp;quot; + n);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;注意：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;执行删除操作也是使用的&lt;code&gt;PreparedStatement.executeUpdate()&lt;/code&gt;方法，返回值为成功删除的行数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;jdbc-crud-小结&#34;&gt;JDBC CRUD 小结&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;查询操作使用&lt;code&gt;PreparedStatement.executeQuery()&lt;/code&gt;方法，返回类型为&lt;code&gt;ResultSet&lt;/code&gt;的结果集&lt;/li&gt;
+&lt;li&gt;使用 JDBC 执行 INSERT、UPDATE 和 DELETE 都可以视为更新操作，更新操作使用 &lt;code&gt;PreparedStatement.executeUpdate()&lt;/code&gt;方法，返回受影响的行数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;事务&#34;&gt;事务&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWD);
+try {
+    // 关闭自动提交
+    conn.setAutoCommit(false);
+    // 执行多条SQL语句
+    // ...
+    // 提交事务
+    conn.commit();
+} catch (SQLException e) {
+    // 回滚事务
+    conn.rollback();
+} finally {
+    // 恢复自动提交
+    conn.setAutoCommit(true);
+    conn.close();
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;注意：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;默认情况下，我们获取到&lt;code&gt;Connection&lt;/code&gt;连接后，总是处于自动提交模式，也就是每执行一条 SQL 都是作为事务自动执行的，因此只要关闭了&lt;code&gt;Connection&lt;/code&gt;的自动提交，就可以在一个事务中执行多条语句了&lt;/li&gt;
+&lt;li&gt;MySQL 的默认隔离级别是&lt;code&gt;REPEATABLE READ&lt;/code&gt;，可使用&lt;code&gt;Connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED)&lt;/code&gt;更改隔离级别为&lt;code&gt;READ COMMITTED&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;批量执行&#34;&gt;批量执行&lt;/h3&gt;
+&lt;p&gt;使用循环执行批量操作：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;for (var params : paramList) {
+    PreparedStatement ps = conn.preparedStatement(&amp;quot;INSERT INTO student (name, name, grade, score) VALUES (?, ?, ?, ?)&amp;quot;);
+    ps.setString(1, params.get(0));
+    ps.setBoolean(2, params.get(1));
+    ps.setInt(3, params.get(2));
+    ps.setInt(4, params.get(3));
+    ps.executeUpdate();
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;使用 batch 执行批量操作：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;try (PreparedStatement ps = conn.preparedStatement(&amp;quot;INSERT INTO student (name, gender, grade, score) VALUES (?, ?, ?, ?)&amp;quot;)) {
+    // 对同一个 PreparedStatement 反复设置参数并调用 addBatch()
+    for (Student s : students) {
+        ps.setString(1, s.name);
+        ps.setBoolean(2, s.gender);
+        ps.setInt(3, s.grade);
+        ps.setInt(4, s.score);
+        ps.addBatch();
+    }
+    // 执行 batch
+    int[] ns = ps.executeBatch();
+    for (int n : ns) {
+        System.out.println(n + &amp;quot; inserted.&amp;quot;); // batch 中每个 SQL 执行的结果数量
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;两者的不同：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于内容相同，参数不同的 SQL，通过一个循环来执行每个&lt;code&gt;PreparedStatement&lt;/code&gt;性能很低，而 batch 操作有特别优化，速度远远快于循环执行每个 SQL&lt;/li&gt;
+&lt;li&gt;batch 操作调用的是&lt;code&gt;PreparedStatement.executeBatch()&lt;/code&gt;，返回类型为&lt;code&gt;int[]&lt;/code&gt;，而不是&lt;code&gt;PreparedStatement.executeUpdate()&lt;/code&gt;，返回类型为&lt;code&gt;int&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;连接池&#34;&gt;连接池&lt;/h2&gt;
+&lt;p&gt;JDBC 连接池有一个标准的接口&lt;code&gt;javax.sql.DataSource&lt;/code&gt;，要使用 JDBC 连接池，必须选择一个 JDBC 的是实现。我们以目前使用最广泛的 HikariCP 为例，首先要导入 HikariCP jar 包，可使用如下两种方式：&lt;/p&gt;
+&lt;h3 id=&#34;jar-包&#34;&gt;jar 包&lt;/h3&gt;
+&lt;p&gt;TODO：jar包下载地址&lt;/p&gt;
+&lt;h3 id=&#34;maven&#34;&gt;Maven&lt;/h3&gt;
+&lt;p&gt;TODO：参考https://www.liaoxuefeng.com/wiki/1252599548343744/1321748528103458&lt;br&gt;
+有了连接池后，在获取&lt;code&gt;Connection&lt;/code&gt;时，就不再使用&lt;code&gt;DriverManger.getConnection()&lt;/code&gt;了，而是使用&lt;code&gt;DataSource.getConnection()&lt;/code&gt;：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;HikariConfig config = new HikariConfig();
+config.setJdbcUrl(&amp;quot;jdbc:mysql://localhost:3306/test&amp;quot;);
+config.setUsername(&amp;quot;root&amp;quot;);
+config.setPassword(&amp;quot;password&amp;quot;);
+config.addDataSourceProperty(&amp;quot;connectionTimeout&amp;quot;, &amp;quot;1000&amp;quot;); // 连接超时：1秒
+config.addDataSourceProperty(&amp;quot;idleTimeout&amp;quot;, &amp;quot;60000&amp;quot;); // 空闲超时：60秒
+config.addDataSourceProperty(&amp;quot;maximumPoolSize&amp;quot;, &amp;quot;10&amp;quot;); // 最大连接数：10
+DataSource ds = new HikariDataSource(config);
+try (Connection conn = ds.getConnection()) { // 在此获取连接
+    // ...
+} // 在此关闭连接
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;注意：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在&lt;code&gt;try(resource){...}&lt;/code&gt;结束处调用&lt;code&gt;conn.close()&lt;/code&gt;方法时，并不是真的关闭连接，而是将连接释放到连接池中，以便下次获取连接时能直接返回&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;mysql-数据类型与-java-数据类型对应关系&#34;&gt;MySQL 数据类型与 Java 数据类型对应关系&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;BIT&lt;/code&gt;, &lt;code&gt;BOOL&lt;/code&gt;--&amp;gt;&lt;code&gt;boolean&lt;/code&gt;&lt;br&gt;
@@ -1215,6 +1516,10 @@ try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PAS
 &lt;code&gt;DECIMAL&lt;/code&gt;--&amp;gt;&lt;code&gt;BigDecimal&lt;/code&gt;&lt;br&gt;
 &lt;code&gt;DATE&lt;/code&gt;--&amp;gt;&lt;code&gt;java.sql.Date&lt;/code&gt;, &lt;code&gt;LocalDate&lt;/code&gt;&lt;br&gt;
 &lt;code&gt;TIME&lt;/code&gt;--&amp;gt;&lt;code&gt;java.sql.Time&lt;/code&gt;, &lt;code&gt;LocalTime&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;https://www.liaoxuefeng.com/wiki/1252599548343744&lt;/li&gt;
+&lt;/ul&gt;
 ">JDBC</a>
       </div>
       
