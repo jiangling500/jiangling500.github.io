@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Java | jiangling500</title>
+<title>Java 读取配置文件范例 | jiangling500</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,7 +18,12 @@
 
 
 
-    <meta name="description" content="万丈高楼平地起，勿在浮沙筑高台！">
+    <meta name="description" content="我们将 MySQL 的用户名、密码以及 JDBC URL 配置在 jdbc.properties 文件中，内容如下：
+url=jdbc:mysql:///db3
+user=root
+password=root
+driver=com.mysq..." />
+    <meta name="keywords" content="Java" />
   </head>
   <body>
     <div id="app" class="main">
@@ -88,73 +93,74 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="current-tag">标签: Java</h2>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://jiangling500.github.io/post/object-lei-zhong-de-cheng-yuan/">
-                  <h2 class="post-title">Object 类中的成员</h2>
-                </a>
-                <div class="post-date">
-                  2021-01-03
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://jiangling500.github.io/post/java-du-qu-pei-zhi-wen-jian-fan-li/">
-                  <h2 class="post-title">Java 读取配置文件范例</h2>
-                </a>
-                <div class="post-date">
-                  2021-01-02
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://jiangling500.github.io/post/java-zhong-de-jing-tai-dai-ma-kuai/">
-                  <h2 class="post-title">Java 静态代码块的工程应用</h2>
-                </a>
-                <div class="post-date">
-                  2021-01-02
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://jiangling500.github.io/post/JDBC/">
-                  <h2 class="post-title">JDBC</h2>
-                </a>
-                <div class="post-date">
-                  2021-01-02
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
+          <div class="post-detail">
+            <h2 class="post-title">Java 读取配置文件范例</h2>
+            <div class="post-date">2021-01-02</div>
+            
+            <div class="post-content" v-pre>
+              <p>我们将 MySQL 的用户名、密码以及 JDBC URL 配置在 jdbc.properties 文件中，内容如下：</p>
+<pre><code>url=jdbc:mysql:///db3
+user=root
+password=root
+driver=com.mysql.jdbc.Driver
+</code></pre>
+<p>通过读取 jdbc.properties 文件，获取相关参数，创建 MySQL 连接：</p>
+<pre><code class="language-java">public class JDBCUtils {
+    private static String JDBC_URL;
+    private static String JDBC_USER;
+    private static String JDBC_PASSWORD;
 
-          <div class="pagination-container">
-  
-  
-</div>
+    // 文件的读取，只需要读取一次即可，因此使用静态代码块
+    static {
+        Properties pro = new Properties();
+
+        try {
+            pro.load(JDBCUtils.class.getClassLoader().getResourceAsStream(&quot;jdbc.properties&quot;)); // 或者写成pro.load(getClass().getClassLoader().getResourceAsStream(&quot;jdbc.properties&quot;));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        JDBC_URL = pro.getProperty(&quot;url&quot;);
+        JDBC_USER = pro.getProperty(&quot;user&quot;);
+        JDBC_PASSWORD = pro.getProperty(&quot;password&quot;);
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+    }
+}
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>由于配置文件只需要读取一次，因此可以将读取文件操作放在静态代码块中</li>
+<li><code>getClassLoader()</code>方法可获得<code>Class</code>对象的类装载器</li>
+<li>TODO：<code>getResourceAsStream()</code>方法，而不是文件的绝对路径</li>
+</ul>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://jiangling500.github.io/tag/aMceKWr1I/" class="tag">
+                    Java
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://jiangling500.github.io/post/java-zhong-de-jing-tai-dai-ma-kuai/">
+                  <h3 class="post-title">
+                    Java 静态代码块的工程应用
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
 
         </div>
       </div>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jiangling500.github.io</id>
     <title>jiangling500</title>
-    <updated>2021-01-02T15:12:55.396Z</updated>
+    <updated>2021-01-03T07:03:06.249Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jiangling500.github.io"/>
     <link rel="self" href="https://jiangling500.github.io/atom.xml"/>
@@ -10,6 +10,73 @@
     <logo>https://jiangling500.github.io/images/avatar.png</logo>
     <icon>https://jiangling500.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, jiangling500</rights>
+    <entry>
+        <title type="html"><![CDATA[Object 类中的成员]]></title>
+        <id>https://jiangling500.github.io/post/object-lei-zhong-de-cheng-yuan/</id>
+        <link href="https://jiangling500.github.io/post/object-lei-zhong-de-cheng-yuan/">
+        </link>
+        <updated>2021-01-02T16:07:30.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li><code>clone()</code></li>
+<li><code>equals(Object)</code></li>
+<li><code>finalize()</code></li>
+<li><code>getClass()</code></li>
+<li><code>hashCode()</code></li>
+<li><code>notify()</code></li>
+<li><code>notifyAll()</code></li>
+<li><code>toString()</code></li>
+<li><code>wait()</code></li>
+<li><code>wait(long)</code></li>
+<li><code>wait(long, int)</code></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Java 读取配置文件范例]]></title>
+        <id>https://jiangling500.github.io/post/java-du-qu-pei-zhi-wen-jian-fan-li/</id>
+        <link href="https://jiangling500.github.io/post/java-du-qu-pei-zhi-wen-jian-fan-li/">
+        </link>
+        <updated>2021-01-02T15:34:44.000Z</updated>
+        <content type="html"><![CDATA[<p>我们将 MySQL 的用户名、密码以及 JDBC URL 配置在 jdbc.properties 文件中，内容如下：</p>
+<pre><code>url=jdbc:mysql:///db3
+user=root
+password=root
+driver=com.mysql.jdbc.Driver
+</code></pre>
+<p>通过读取 jdbc.properties 文件，获取相关参数，创建 MySQL 连接：</p>
+<pre><code class="language-java">public class JDBCUtils {
+    private static String JDBC_URL;
+    private static String JDBC_USER;
+    private static String JDBC_PASSWORD;
+
+    // 文件的读取，只需要读取一次即可，因此使用静态代码块
+    static {
+        Properties pro = new Properties();
+
+        try {
+            pro.load(JDBCUtils.class.getClassLoader().getResourceAsStream(&quot;jdbc.properties&quot;)); // 或者写成pro.load(getClass().getClassLoader().getResourceAsStream(&quot;jdbc.properties&quot;));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        JDBC_URL = pro.getProperty(&quot;url&quot;);
+        JDBC_USER = pro.getProperty(&quot;user&quot;);
+        JDBC_PASSWORD = pro.getProperty(&quot;password&quot;);
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+    }
+}
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>由于配置文件只需要读取一次，因此可以将读取文件操作放在静态代码块中</li>
+<li><code>getClassLoader()</code>方法可获得<code>Class</code>对象的类装载器</li>
+<li>TODO：<code>getResourceAsStream()</code>方法，而不是文件的绝对路径</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Java 静态代码块的工程应用]]></title>
         <id>https://jiangling500.github.io/post/java-zhong-de-jing-tai-dai-ma-kuai/</id>
